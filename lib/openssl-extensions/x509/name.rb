@@ -1,5 +1,8 @@
 require 'openssl-extensions/x509'
 
+##
+# Extends OpenSSL::X509::Name with additional shortcut methods.
+#
 module OpenSSLExtensions::X509::Name
   def organization
     read_entry_by_oid('O')
@@ -19,6 +22,10 @@ module OpenSSLExtensions::X509::Name
 
   def locality
     read_entry_by_oid('L')
+  end
+
+  def location
+    [locality, state, country].compact.join(', ')
   end
 
   def state

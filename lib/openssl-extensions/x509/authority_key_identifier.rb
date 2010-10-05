@@ -1,12 +1,17 @@
 require 'openssl-extensions/x509'
 
+##
+# Returned with requesting an OpenSSLExtensions::X509::Certificate.authority_key_identifier.
+# If available, this collects the issuer_name (issuer's common name),
+# serial_number, and key_id (fingerprint).
+#
 class OpenSSLExtensions::X509::AuthorityKeyIdentifier
 
   attr_reader :issuer_name, :serial_number, :key_id
   alias :serial :serial_number
 
   def initialize(extension_string)
-    parse(extension_string.dup)
+    parse(extension_string.dup) if extension_string
   end
 
   def parse(string)

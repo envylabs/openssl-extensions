@@ -1,0 +1,2 @@
+module OpenSSLExtensions::SSL
+end

@@ -48,6 +48,15 @@ module OpenSSLExtensions::X509::Certificate
   end
 
   ##
+  # Returns +true+ if this certificate is a root certificate (it is its
+  # own issuer).
+  #
+  def root?
+    issuer.to_s == subject.to_s &&
+      (subject_key_identifier ? subject_key_identifier == authority_key_identifier.key_id : true)
+  end
+
+  ##
   # Equality is tested by comparing the generated PEM signatures.
   #
   def ==(other)

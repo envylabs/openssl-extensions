@@ -67,4 +67,14 @@ describe OpenSSLExtensions::X509::Certificate do
     its(:subject_key_identifier) { should == '28:C4:EB:8F:F1:5F:79:90:A3:2B:55:C3:56:4E:7D:6B:53:72:2C:18' }
   end
 
+  context 'root?' do
+    it 'is false for a certificate with a separate issuer' do
+      extended_ssl_certificates('www.geocerts.com').should_not be_root
+    end
+
+    it 'is true for a certificate which is its own issuer' do
+      extended_ssl_certificates('equifax-secure-ca').should be_root
+    end
+  end
+
 end

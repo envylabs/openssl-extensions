@@ -60,6 +60,21 @@ describe OpenSSLExtensions::X509::Certificate do
     end
   end
 
+  context 'in a collection, uniq' do
+    it 'removes duplicate certificates' do
+      [ssl_certificates('www.geocerts.com'),
+        ssl_certificates('www.geocerts.com')].uniq.should ==
+        [ssl_certificates('www.geocerts.com')]
+    end
+
+    it 'does not modify non-duplicates' do
+      [ssl_certificates('www.geocerts.com'),
+        ssl_certificates('GeoTrust Extended Validation SSL CA')].uniq.should ==
+      [ssl_certificates('www.geocerts.com'),
+        ssl_certificates('GeoTrust Extended Validation SSL CA')]
+    end
+  end
+
   context 'when a subject key identifier is provided' do
 
     subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }

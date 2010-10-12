@@ -62,7 +62,15 @@ module OpenSSLExtensions::X509::Certificate
   def ==(other)
     to_pem == other.to_pem
   end
+  alias_method :eql?, :==
 
+  ##
+  # Override the default Object#hash to identify uniqueness of the
+  # Certificate.  This uses a hash of the certificate PEM.
+  # 
+  def hash
+    to_pem.hash
+  end
 end
 
 OpenSSL::X509::Certificate.send(:include, OpenSSLExtensions::X509::Certificate)

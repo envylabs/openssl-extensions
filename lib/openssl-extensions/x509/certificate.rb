@@ -53,7 +53,7 @@ module OpenSSLExtensions::X509::Certificate
   #
   def root?
     issuer.to_s == subject.to_s &&
-      (subject_key_identifier ? subject_key_identifier == authority_key_identifier.key_id : true)
+      (subject_key_identifier && authority_key_identifier.key_id ? subject_key_identifier == authority_key_identifier.key_id : true)
   end
 
   ##

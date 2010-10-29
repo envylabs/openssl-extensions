@@ -90,6 +90,10 @@ describe OpenSSLExtensions::X509::Certificate do
     it 'is true for a certificate which is its own issuer' do
       extended_ssl_certificates('equifax-secure-ca').should be_root
     end
+
+    it 'is true for a certificate with a matching subject and issuer, subject identifier given, but no authority identifier provided' do
+      extended_ssl_certificates('globalsign-root-ca').should be_root
+    end
   end
 
 end

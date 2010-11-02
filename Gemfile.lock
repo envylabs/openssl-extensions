@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openssl-extensions (0.0.5)
+    openssl-extensions (0.0.7)
 
 GEM
   remote: http://rubygems.org/

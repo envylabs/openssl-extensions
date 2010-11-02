@@ -7,6 +7,16 @@ describe OpenSSLExtensions::X509::Certificate do
   its(:subject_key_identifier) { should be_nil }
   its(:authority_key_identifier) { should be_kind_of(OpenSSLExtensions::X509::AuthorityKeyIdentifier) }
 
+  context 'strength' do
+    it 'is 2048 bits' do
+      subject.strength.should == 2048
+    end
+
+    it 'is 1024 bits' do
+      extended_ssl_certificates('www.twongo.com').strength.should == 1024
+    end
+  end
+
   context 'allows_certificate_signing?' do
     context 'for V3' do
       it 'is true for a root certificate' do

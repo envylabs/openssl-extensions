@@ -12,6 +12,13 @@ module OpenSSLExtensions::X509::Certificate
   end
   alias :sans :subject_alternative_names
 
+  ##
+  # Returns the bit strength of the public certificate.
+  #
+  def strength
+    public_key.n.num_bits
+  end
+
   def subject_key_identifier
     read_extension_by_oid('subjectKeyIdentifier')
   end

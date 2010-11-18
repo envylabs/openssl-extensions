@@ -29,6 +29,3 @@ DEPENDENCIES
   fuubar (>= 0.0.1)
   openssl-extensions!
   rspec (>= 2.1.0)
-
-METADATA
-  version: 1.0.6

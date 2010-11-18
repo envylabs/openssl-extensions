@@ -3,5 +3,6 @@ OpenSSLExtensions.check_dependencies!
 
 require 'openssl-extensions/x509/certificate'
 require 'openssl-extensions/x509/certificate_chain'
+require 'openssl-extensions/x509/request'
 require 'openssl-extensions/x509/name'
 require 'openssl-extensions/ssl/ssl_socket'

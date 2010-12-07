@@ -1,3 +1,4 @@
+require 'openssl-extensions'
 require 'openssl-extensions/ssl'
 require 'openssl-extensions/x509/certificate_chain'
 

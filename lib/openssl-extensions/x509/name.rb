@@ -20,6 +20,10 @@ module OpenSSLExtensions::X509::Name
     read_entry_by_oid('C')
   end
 
+  def email
+    read_entry_by_oid('emailAddress')
+  end
+
   def locality
     read_entry_by_oid('L')
   end

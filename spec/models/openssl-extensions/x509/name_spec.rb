@@ -11,5 +11,10 @@ describe OpenSSLExtensions::X509::Name do
   its(:state) { should == 'Georgia' }
   its(:region) { should == 'Georgia' }
 
+  context 'with an email address' do
+    subject { certificate_request('envylabs').subject.extend(OpenSSLExtensions::X509::Name) }
+    its(:email) { should == 'support@envylabs.com' }
+  end
+
   its(:location) { should == 'Atlanta, Georgia, US' }
 end

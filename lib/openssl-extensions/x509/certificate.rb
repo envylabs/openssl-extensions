@@ -84,6 +84,23 @@ module OpenSSLExtensions::X509::Certificate
     read_extension_by_oid('subjectKeyIdentifier')
   end
 
+  ##
+  # Returns the SSL version used by the certificate.  Most likely, this
+  # will return +3+, since version +1+ was unreleased, and version +2+ was
+  # abandoned in 1995.
+  #
+  # See http://en.wikipedia.org/wiki/Secure_Sockets_Layer.
+  #
+  #--
+  # OPTIMIZE: This should really use a call directly to the OpenSSL library, but will require becoming a compiled gem.
+  #++
+  #
+  def ssl_version
+    if to_text =~ %r{^\s+Version: (\d+)}m
+      $1.to_i
+    end
+  end
+
 end
 
 OpenSSL::X509::Certificate.send(:include, OpenSSLExtensions::X509::Certificate)

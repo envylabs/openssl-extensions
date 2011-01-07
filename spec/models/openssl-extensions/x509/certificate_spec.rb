@@ -6,6 +6,7 @@ describe OpenSSLExtensions::X509::Certificate do
   its(:subject_alternative_names) { should == %w(www.geocerts.com geocerts.com) }
   its(:subject_key_identifier) { should be_nil }
   its(:authority_key_identifier) { should be_kind_of(OpenSSLExtensions::X509::AuthorityKeyIdentifier) }
+  its(:ssl_version) { should == 3 }
 
   context 'strength' do
     it 'is 2048 bits' do
@@ -105,5 +106,4 @@ describe OpenSSLExtensions::X509::Certificate do
       extended_ssl_certificates('globalsign-root-ca').should be_root
     end
   end
-
 end

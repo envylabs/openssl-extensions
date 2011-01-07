@@ -1,3 +1,3 @@
 module OpenSSLExtensions
-  Version = '0.0.9'
+  Version = '1.0.0'
 end

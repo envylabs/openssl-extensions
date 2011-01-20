@@ -20,7 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 2.4.0'
   s.add_development_dependency 'fuubar', '~> 0.0.1'
 
-  s.files = Dir.glob('lib/**/*') + extra_rdoc_files
-  s.test_files = Dir.glob('spec/**/*')
-  s.require_path = 'lib'
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
 end

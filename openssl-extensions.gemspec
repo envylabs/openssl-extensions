@@ -4,8 +4,6 @@ $:.unshift lib unless $:.include?(lib)
 
 require 'openssl-extensions/version'
 
-extra_rdoc_files = ['CHANGELOG.md', 'LICENSE', 'README.md']
-
 Gem::Specification.new do |s|
   s.name = 'openssl-extensions'
   s.version = OpenSSLExtensions::Version

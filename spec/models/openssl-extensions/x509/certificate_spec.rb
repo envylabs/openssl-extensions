@@ -106,4 +106,14 @@ describe OpenSSLExtensions::X509::Certificate do
       extended_ssl_certificates('globalsign-root-ca').should be_root
     end
   end
+  
+  context 'hexserial' do
+    
+    subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }
+
+    its(:hex_serial) { should == '6948A26B201AA421E898B1C492C7C58E' }
+    
+  end
+  
+  
 end

@@ -52,7 +52,6 @@ module OpenSSLExtensions::X509::Certificate
   def read_extension_by_oid(oid)
     (extensions.detect { |e| e.to_a.first == oid } || []).to_a[1]
   end
-  protected :read_extension_by_oid
 
   ##
   # Returns +true+ if this certificate is a root certificate (it is its
@@ -99,6 +98,14 @@ module OpenSSLExtensions::X509::Certificate
     if to_text =~ %r{^\s+Version: (\d+)}m
       $1.to_i
     end
+  end
+  
+  ##
+  # OpenSSL deals with serials in HEX format.
+  # This gives you the ability to get this hex serial if you need to work with 
+  # certificate information directly.
+  def hex_serial
+    serial.to_s(16).upcase
   end
 
 end

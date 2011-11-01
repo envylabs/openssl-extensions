@@ -52,6 +52,7 @@ module OpenSSLExtensions::X509::Certificate
   def read_extension_by_oid(oid)
     (extensions.detect { |e| e.to_a.first == oid } || []).to_a[1]
   end
+  protected :read_extension_by_oid
 
   ##
   # Returns +true+ if this certificate is a root certificate (it is its
@@ -82,6 +83,16 @@ module OpenSSLExtensions::X509::Certificate
   def subject_key_identifier
     read_extension_by_oid('subjectKeyIdentifier')
   end
+  
+  ##
+  # This can be used for getting OCSP Urls for revocation checks.
+  def authority_info_access
+    read_extension_by_oid('authorityInfoAccess')
+  end
+  
+  def crl_distribution_points
+    read_extension_by_oid('crlDistributionPoints')
+  end
 
   ##
   # Returns the SSL version used by the certificate.  Most likely, this
@@ -99,15 +110,7 @@ module OpenSSLExtensions::X509::Certificate
       $1.to_i
     end
   end
-  
-  ##
-  # OpenSSL deals with serials in HEX format.
-  # This gives you the ability to get this hex serial if you need to work with 
-  # certificate information directly.
-  def hex_serial
-    serial.to_s(16).upcase
-  end
-
+ 
 end
 
 OpenSSL::X509::Certificate.send(:include, OpenSSLExtensions::X509::Certificate)

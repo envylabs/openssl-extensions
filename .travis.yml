@@ -5,11 +5,6 @@ rvm:
   - ree
   - jruby
   - rbx
-gemfile:
-  - Gemfile
 script: "bundle exec rspec spec/"
-branches:
-  only:
-    - master
 notifications:
   email: 'nate@envylabs.com'

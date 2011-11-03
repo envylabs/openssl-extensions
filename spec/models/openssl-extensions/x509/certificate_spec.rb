@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe OpenSSLExtensions::X509::Certificate do
-  subject { extended_ssl_certificates('www.geocerts.com') }
+  let(:certificate) { extended_ssl_certificates('www.geocerts.com') }
+  subject { certificate }
 
   its(:subject_alternative_names) { should == %w(www.geocerts.com geocerts.com) }
   its(:subject_key_identifier) { should be_nil }
@@ -87,7 +88,6 @@ describe OpenSSLExtensions::X509::Certificate do
   end
 
   context 'when a subject key identifier is provided' do
-
     subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }
 
     its(:subject_key_identifier) { should == '28:C4:EB:8F:F1:5F:79:90:A3:2B:55:C3:56:4E:7D:6B:53:72:2C:18' }
@@ -107,24 +107,26 @@ describe OpenSSLExtensions::X509::Certificate do
     end
   end
 
-  context 'to_hex' do
+  context 'serial' do
+    context 'to_hex' do
+      let(:certificate) { extended_ssl_certificates('GeoTrust Extended Validation SSL CA') }
+      subject { certificate.serial.to_hex }
 
-    subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }
-    
-    it "should have a correctly functioning hex_serial method" do
-      subject.serial.to_hex.should eq('6948A26B201AA421E898B1C492C7C58E')
+      it 'returns the base 16 (hex) format of the serial number' do
+        should eq('6948A26B201AA421E898B1C492C7C58E')
+      end
     end
-    
   end
-  
-  context "crlDistribution and authorityInfoAccess" do
-    
-    subject { extended_ssl_certificates('www.geocerts.com') }
-    
-    its(:authority_info_access) { should_not be_nil }
-    its(:crl_distribution_points) { should_not be_nil}
-    
-  end
-  
 
+  context 'crl_distribution_points' do
+    subject { certificate.crl_distribution_points }
+
+    it { should == "URI:http://EVSSL-crl.geotrust.com/crls/gtextvalca.crl\n" }
+  end
+
+  context 'authority_info_access' do
+    subject { certificate.authority_info_access }
+
+    it { should == "OCSP - URI:http://EVSSL-ocsp.geotrust.com\nCA Issuers - URI:http://EVSSL-aia.geotrust.com/evca.crt\n" }
+  end
 end

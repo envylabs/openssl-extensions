@@ -3,8 +3,8 @@ rvm:
   - 1.9.2
   - 1.9.3
   - ree
-  - jruby
   - rbx
-script: "bundle exec rspec spec/"
+  - rbx-2.0
+script: "rake spec"
 notifications:
   email: 'nate@envylabs.com'

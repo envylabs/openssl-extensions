@@ -1,4 +1,4 @@
-# OpenSSL Extensions
+# OpenSSL Extensions [![Build status][ci-image]][ci]
 
 This library generally provides helper methods which makes working with
 OpenSSL a little more bearable.  It does, however, provide some additional
@@ -48,3 +48,6 @@ library:
 ## License
 
 Released under the MIT License. See the LICENSE file for further details.
+
+[ci]: http://travis-ci.org/nbibler/openssl-extensions
+[ci-image]: https://secure.travis-ci.org/nbibler/openssl-extensions.png

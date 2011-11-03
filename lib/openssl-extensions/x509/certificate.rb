@@ -83,6 +83,16 @@ module OpenSSLExtensions::X509::Certificate
   def subject_key_identifier
     read_extension_by_oid('subjectKeyIdentifier')
   end
+  
+  ##
+  # This can be used for getting OCSP Urls for revocation checks.
+  def authority_info_access
+    read_extension_by_oid('authorityInfoAccess')
+  end
+  
+  def crl_distribution_points
+    read_extension_by_oid('crlDistributionPoints')
+  end
 
   ##
   # Returns the SSL version used by the certificate.  Most likely, this
@@ -100,7 +110,7 @@ module OpenSSLExtensions::X509::Certificate
       $1.to_i
     end
   end
-
+ 
 end
 
 OpenSSL::X509::Certificate.send(:include, OpenSSLExtensions::X509::Certificate)

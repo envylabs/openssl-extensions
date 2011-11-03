@@ -44,17 +44,17 @@ describe OpenSSLExtensions::X509::Certificate do
     context 'for V3' do
       it 'is true when passing the issuing certificate' do
         extended_ssl_certificates('www.geocerts.com').
-          issuing_certificate?(extended_ssl_certificates('GeoTrust Extended Validation SSL CA')).should be_true
+        issuing_certificate?(extended_ssl_certificates('GeoTrust Extended Validation SSL CA')).should be_true
       end
 
       it 'is false when passing the distant root certificate' do
         extended_ssl_certificates('www.geocerts.com').
-          issuing_certificate?(extended_ssl_certificates('GeoTrust Primary Certification Authority')).should be_false
+        issuing_certificate?(extended_ssl_certificates('GeoTrust Primary Certification Authority')).should be_false
       end
 
       it 'is false when passing a different site certificate' do
         extended_ssl_certificates('www.geocerts.com').
-          issuing_certificate?(extended_ssl_certificates('www.twongo.com'))
+        issuing_certificate?(extended_ssl_certificates('www.twongo.com'))
       end
     end
   end
@@ -74,15 +74,15 @@ describe OpenSSLExtensions::X509::Certificate do
   context 'in a collection, uniq' do
     it 'removes duplicate certificates' do
       [ssl_certificates('www.geocerts.com'),
-        ssl_certificates('www.geocerts.com')].uniq.should ==
-        [ssl_certificates('www.geocerts.com')]
+      ssl_certificates('www.geocerts.com')].uniq.should ==
+      [ssl_certificates('www.geocerts.com')]
     end
 
     it 'does not modify non-duplicates' do
       [ssl_certificates('www.geocerts.com'),
-        ssl_certificates('GeoTrust Extended Validation SSL CA')].uniq.should ==
+      ssl_certificates('GeoTrust Extended Validation SSL CA')].uniq.should ==
       [ssl_certificates('www.geocerts.com'),
-        ssl_certificates('GeoTrust Extended Validation SSL CA')]
+      ssl_certificates('GeoTrust Extended Validation SSL CA')]
     end
   end
 
@@ -106,4 +106,25 @@ describe OpenSSLExtensions::X509::Certificate do
       extended_ssl_certificates('globalsign-root-ca').should be_root
     end
   end
+
+  context 'to_hex' do
+
+    subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }
+    
+    it "should have a correctly functioning hex_serial method" do
+      subject.serial.to_hex.should eq('6948A26B201AA421E898B1C492C7C58E')
+    end
+    
+  end
+  
+  context "crlDistribution and authorityInfoAccess" do
+    
+    subject { extended_ssl_certificates('www.geocerts.com') }
+    
+    its(:authority_info_access) { should_not be_nil }
+    its(:crl_distribution_points) { should_not be_nil}
+    
+  end
+  
+
 end

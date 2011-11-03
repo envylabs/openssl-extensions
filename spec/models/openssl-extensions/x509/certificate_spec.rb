@@ -10,33 +10,42 @@ describe OpenSSLExtensions::X509::Certificate do
   its(:ssl_version) { should == 3 }
 
   context 'strength' do
-    it 'is 2048 bits' do
-      subject.strength.should == 2048
+    subject { certificate.strength }
+
+    context 'for a 2048 bit certificate' do
+      it { should == 2048 }
     end
 
-    it 'is 1024 bits' do
-      extended_ssl_certificates('www.twongo.com').strength.should == 1024
+    context 'for a 1024 bit certificate' do
+      let(:certificate) { extended_ssl_certificates('www.twongo.com') }
+
+      it { should == 1024 }
     end
   end
 
   context 'allows_certificate_signing?' do
+    subject { certificate.allows_certificate_signing? }
+
     context 'for V3' do
-      it 'is true for a root certificate' do
-        extended_ssl_certificates('GeoTrust Primary Certification Authority').allows_certificate_signing?.should be_true
+      context 'for a root certificate' do
+        let(:certificate) { extended_ssl_certificates('GeoTrust Primary Certification Authority') }
+        it { should be_true }
       end
 
-      it 'is false for a site certificate' do
-        extended_ssl_certificates('www.geocerts.com').allows_certificate_signing?.should be_false
+      context 'for a site certificate' do
+        it { should be_false }
       end
     end
 
     context 'for V1' do
-      it 'is true for a root certificate' do
-        extended_ssl_certificates('HongKong Post Root CA 1').allows_certificate_signing?.should be_true
+      context 'for a root certificate' do
+        let(:certificate) { extended_ssl_certificates('HongKong Post Root CA 1') }
+        it { should be_true }
       end
 
-      it 'is false for a site certificate' do
-        extended_ssl_certificates('app1.hongkongpost.com').allows_certificate_signing?.should be_false
+      context 'for a site certificate' do
+        let(:certificate) { extended_ssl_certificates('app1.hongkongpost.com') }
+        it { should be_false }
       end
     end
   end
@@ -45,24 +54,25 @@ describe OpenSSLExtensions::X509::Certificate do
     context 'for V3' do
       it 'is true when passing the issuing certificate' do
         extended_ssl_certificates('www.geocerts.com').
-        issuing_certificate?(extended_ssl_certificates('GeoTrust Extended Validation SSL CA')).should be_true
+          issuing_certificate?(extended_ssl_certificates('GeoTrust Extended Validation SSL CA')).should be_true
       end
 
       it 'is false when passing the distant root certificate' do
         extended_ssl_certificates('www.geocerts.com').
-        issuing_certificate?(extended_ssl_certificates('GeoTrust Primary Certification Authority')).should be_false
+          issuing_certificate?(extended_ssl_certificates('GeoTrust Primary Certification Authority')).should be_false
       end
 
       it 'is false when passing a different site certificate' do
         extended_ssl_certificates('www.geocerts.com').
-        issuing_certificate?(extended_ssl_certificates('www.twongo.com'))
+          issuing_certificate?(extended_ssl_certificates('www.twongo.com'))
       end
     end
   end
 
   context 'equality (==)' do
     it 'is true with matching PEMs' do
-      ssl_certificates('www.geocerts.com').should == ssl_certificates('www.geocerts.com')
+      ssl_certificates('www.geocerts.com').
+        should == ssl_certificates('www.geocerts.com')
     end
 
     it 'is false with mismatched PEMs' do
@@ -75,22 +85,22 @@ describe OpenSSLExtensions::X509::Certificate do
   context 'in a collection, uniq' do
     it 'removes duplicate certificates' do
       [ssl_certificates('www.geocerts.com'),
-      ssl_certificates('www.geocerts.com')].uniq.should ==
-      [ssl_certificates('www.geocerts.com')]
+        ssl_certificates('www.geocerts.com')].uniq.should ==
+        [ssl_certificates('www.geocerts.com')]
     end
 
     it 'does not modify non-duplicates' do
       [ssl_certificates('www.geocerts.com'),
-      ssl_certificates('GeoTrust Extended Validation SSL CA')].uniq.should ==
-      [ssl_certificates('www.geocerts.com'),
-      ssl_certificates('GeoTrust Extended Validation SSL CA')]
+        ssl_certificates('GeoTrust Extended Validation SSL CA')].uniq.should ==
+        [ssl_certificates('www.geocerts.com'),
+          ssl_certificates('GeoTrust Extended Validation SSL CA')]
     end
   end
 
-  context 'when a subject key identifier is provided' do
-    subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate) }
+  context 'subject_key_identifier' do
+    subject { ssl_certificates('GeoTrust Extended Validation SSL CA').extend(OpenSSLExtensions::X509::Certificate).subject_key_identifier }
 
-    its(:subject_key_identifier) { should == '28:C4:EB:8F:F1:5F:79:90:A3:2B:55:C3:56:4E:7D:6B:53:72:2C:18' }
+    it { should == '28:C4:EB:8F:F1:5F:79:90:A3:2B:55:C3:56:4E:7D:6B:53:72:2C:18' }
   end
 
   context 'root?' do

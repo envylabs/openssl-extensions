@@ -45,9 +45,28 @@ library:
     request.challenge_password?         # => false
     request.subject_alternative_names   # => ['example.com', 'www.example.com']
 
+## Supported Ruby Implementations
+
+This OpenSSL extension library currently supports (and is continuously tested
+against) the following Ruby implementations:
+
+* [MRI 1.8.7][mri]
+* [MRI 1.9.2][mri]
+* [MRI 1.9.3][mri]
+* [Ruby Enterprise Edition][ree]
+* [Rubinius][rubinius]
+
+The following implementations are known to be incompatible:
+
+* [JRuby][jruby]
+
 ## License
 
 Released under the MIT License. See the LICENSE file for further details.
 
 [ci]: http://travis-ci.org/nbibler/openssl-extensions
 [ci-image]: https://secure.travis-ci.org/nbibler/openssl-extensions.png
+[mri]: http://www.ruby-lang.org/
+[ree]: http://www.rubyenterpriseedition.com/
+[rubinius]: http://rubini.us/
+[jruby]: http://jruby.org/

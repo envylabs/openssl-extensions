@@ -9,14 +9,20 @@ features of the library.
 
 With [Bundler](http://gembundler.com):
 
-    gem 'openssl-extensions', :require => 'openssl-extensions/all'
+```ruby
+gem 'openssl-extensions', :require => 'openssl-extensions/all'
+```
 
 With standard RubyGems:
 
-    gem install openssl-extensions
+```shell
+gem install openssl-extensions
+```
 
-    require 'rubygems'
-    require 'openssl-extensions/all'
+```ruby
+require 'rubygems'
+require 'openssl-extensions/all'
+```
 
 Once required, the extensions are automatically applied.
 
@@ -31,19 +37,21 @@ OpenSSL::X509::NAME).
 Below is a simple example exercising a few helpers provided by this 
 library:
 
-    csr_body = File.read('example.csr') # assuming this is valid and exists
-    request = OpenSSL::X509::Request.new(csr_body)
+```ruby
+csr_body = File.read('example.csr') # assuming this is valid and exists
+request = OpenSSL::X509::Request.new(csr_body)
     
-    request.subject.common_name         # => "example.com"
-    request.subject.organization        # => "Example Corp"
-    request.subject.locality            # => "Orlando"
-    request.subject.region              # => "Florida"
-    request.subject.country             # => "US"
-    request.subject.location            # => "Orlando, Florida, US"
+request.subject.common_name         # => "example.com"
+request.subject.organization        # => "Example Corp"
+request.subject.locality            # => "Orlando"
+request.subject.region              # => "Florida"
+request.subject.country             # => "US"
+request.subject.location            # => "Orlando, Florida, US"
     
-    request.strength                    # => 2048
-    request.challenge_password?         # => false
-    request.subject_alternative_names   # => ['example.com', 'www.example.com']
+request.strength                    # => 2048
+request.challenge_password?         # => false
+request.subject_alternative_names   # => ['example.com', 'www.example.com']
+```
 
 ## Supported Ruby Implementations
 

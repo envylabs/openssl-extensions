@@ -7,3 +7,7 @@ tmp
 pkg
 *.gem
 
+.ruby-version
+.ruby-gemset
+.rbenv-version
+.rvmrc

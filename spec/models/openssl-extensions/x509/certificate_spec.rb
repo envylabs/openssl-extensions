@@ -131,12 +131,15 @@ describe OpenSSLExtensions::X509::Certificate do
   context 'crl_distribution_points' do
     subject { certificate.crl_distribution_points }
 
-    it { should == "URI:http://EVSSL-crl.geotrust.com/crls/gtextvalca.crl\n" }
+    it { should be_a String }
+    it { should include "URI:http://EVSSL-crl.geotrust.com/crls/gtextvalca.crl" }
   end
 
   context 'authority_info_access' do
     subject { certificate.authority_info_access }
 
-    it { should == "OCSP - URI:http://EVSSL-ocsp.geotrust.com\nCA Issuers - URI:http://EVSSL-aia.geotrust.com/evca.crt\n" }
+    it { should be_a String }
+    it { should include "OCSP - URI:http://EVSSL-ocsp.geotrust.com" }
+    it { should include "CA Issuers - URI:http://EVSSL-aia.geotrust.com/evca.crt" }
   end
 end

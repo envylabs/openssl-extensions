@@ -1,5 +1,4 @@
 module OpenSSLExtensions
-
   ##
   # Ensures that the current Ruby was compiled with OpenSSL support enabled.
   #
@@ -11,5 +10,4 @@ module OpenSSLExtensions
       exit(1)
     end
   end
-
 end

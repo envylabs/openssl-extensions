@@ -3,7 +3,6 @@ require 'openssl-extensions/ssl'
 require 'openssl-extensions/x509/certificate_chain'
 
 module OpenSSLExtensions::SSL::SSLSocket
-
   def self.included(base)
     base.send(:alias_method,
               :peer_cert_chain_without_openssl_extension,
@@ -22,7 +21,6 @@ module OpenSSLExtensions::SSL::SSLSocket
     OpenSSLExtensions::X509::CertificateChain.
       new(peer_cert, peer_cert_chain_without_openssl_extension)
   end
-
 end
 
 OpenSSL::SSL::SSLSocket.send(:include, OpenSSLExtensions::SSL::SSLSocket)

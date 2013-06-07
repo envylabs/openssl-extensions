@@ -25,15 +25,10 @@ module OpenSSLExtensions::X509::Request
   ##
   # Override the default Object#hash to identify uniqueness of the
   # Request.  This uses a hash of the PEM.
-  # 
+  #
   def hash
     to_pem.hash
   end
-
-  def read_attributes_by_oid(*oids)
-    attributes.detect { |a| oids.include?(a.oid) }
-  end
-  protected :read_attributes_by_oid
 
   ##
   # Returns the bit strength of the public key used for the signing
@@ -64,6 +59,13 @@ module OpenSSLExtensions::X509::Request
   end
   alias :sans :subject_alternative_names
 
+
+  protected
+
+
+  def read_attributes_by_oid(*oids)
+    attributes.detect { |a| oids.include?(a.oid) }
+  end
 end
 
 OpenSSL::X509::Request.send(:include, OpenSSLExtensions::X509::Request)

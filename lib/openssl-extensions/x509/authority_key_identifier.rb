@@ -15,19 +15,9 @@ class OpenSSLExtensions::X509::AuthorityKeyIdentifier
     parse(extension_string.dup) if extension_string
   end
 
-  def parse(string)
-    Hash[string.scan(%r{(\w+):([^,\n]+)})].tap do |h|
-      @issuer_name = common_name(strip(h['DirName']))
-      @serial_number = strip(h['serial'])
-      @key_id = strip(h['keyid'])
-    end
-  end
-  private :parse
 
-  def strip(input)
-    input ? input.to_s.strip : nil
-  end
-  private :strip
+  private
+
 
   def common_name(input)
     if input
@@ -37,6 +27,16 @@ class OpenSSLExtensions::X509::AuthorityKeyIdentifier
       name[1] if name
     end
   end
-  private :common_name
 
+  def parse(string)
+    Hash[string.scan(%r{(\w+):([^,\n]+)})].tap do |h|
+      @issuer_name = common_name(strip(h['DirName']))
+      @serial_number = strip(h['serial'])
+      @key_id = strip(h['keyid'])
+    end
+  end
+
+  def strip(input)
+    input ? input.to_s.strip : nil
+  end
 end

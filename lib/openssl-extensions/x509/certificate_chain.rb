@@ -21,10 +21,13 @@ class OpenSSLExtensions::X509::CertificateChain
     reorganize!(peer_certificate, certificates)
   end
 
+
+  private
+
+
   def method_missing(method, *args, &block)
     @certificates.send(method, *args, &block)
   end
-  private :method_missing
 
   def reorganize!(site_certificate, certificates)
     return unless site_certificate && !certificates.empty?
@@ -41,5 +44,4 @@ class OpenSSLExtensions::X509::CertificateChain
       end
     end
   end
-  private :reorganize!
 end

@@ -1,4 +1,8 @@
-# OpenSSL Extensions [![Build status][ci-image]][ci]
+# OpenSSL Extensions
+
+[![Gem Version](https://badge.fury.io/rb/openssl-extensions.png)](http://badge.fury.io/rb/openssl-extensions)
+[![Build Status](https://secure.travis-ci.org/envylabs/openssl-extensions.png?branch=master)](http://travis-ci.org/envylabs/openssl-extensions)
+[![Code Climate](https://codeclimate.com/github/envylabs/openssl-extensions.png)](https://codeclimate.com/github/envylabs/openssl-extensions)
 
 This library generally provides helper methods which makes working with
 OpenSSL a little more bearable.  It does, however, provide some additional
@@ -72,8 +76,6 @@ The following implementations are known to be incompatible:
 
 Released under the MIT License. See the LICENSE file for further details.
 
-[ci]: http://travis-ci.org/nbibler/openssl-extensions
-[ci-image]: https://secure.travis-ci.org/nbibler/openssl-extensions.png
 [mri]: http://www.ruby-lang.org/
 [ree]: http://www.rubyenterpriseedition.com/
 [rubinius]: http://rubini.us/

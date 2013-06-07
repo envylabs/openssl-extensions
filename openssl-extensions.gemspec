@@ -1,25 +1,22 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'openssl-extensions/version'
 
-Gem::Specification.new do |s|
-  s.name = 'openssl-extensions'
-  s.version = OpenSSLExtensions::Version
-  s.platform = Gem::Platform::RUBY
-  s.authors = ['Nathaniel Bibler']
-  s.email = ['nate@envylabs.com']
-  s.homepage = 'http://github.com/envylabs/openssl-extensions'
-  s.summary = 'Helper methods and extensions for OpenSSL to make the interface more intuitive.'
-  s.description = 'This library patches OpenSSL to add helper methods and extensions to OpenSSL objects with the intention of making the interface more intuitive.'
-  s.required_rubygems_version = '>= 1.3.6'
+Gem::Specification.new do |spec|
+  spec.name        = 'openssl-extensions'
+  spec.version     = OpenSSLExtensions::Version
+  spec.authors     = ["Envy Labs"]
+  spec.email       = [""]
+  spec.summary     = 'Helper methods and extensions for OpenSSL to make the interface more intuitive.'
+  spec.description = 'This library patches OpenSSL to add helper methods and extensions to OpenSSL objects with the intention of making the interface more intuitive.'
+  spec.homepage    = 'http://github.com/envylabs/openssl-extensions'
+  spec.license     = 'MIT'
 
-  s.add_development_dependency 'rspec', '~> 2.4.0'
-  s.add_development_dependency 'fuubar', '~> 0.0.1'
+  spec.add_development_dependency 'rspec', '~> 2.4'
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
 end

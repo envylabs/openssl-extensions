@@ -2,6 +2,10 @@
 
 ## [HEAD][unreleased] / unreleased
 
+* No significant changes.
+
+## [1.2.1][v1.2.1] / 2013-06-11
+
 * Fix strength calculation with X509 certificates encrypted with DSA keys.
 * Loosen the RSpec dependency requirements to ~> 2.x.
 * Fix failing specs in CRL distribution points.
@@ -26,7 +30,8 @@
   OpenSSLExtensions::X509::AuthorityKeyIdentifier
 
 
-[unreleased]: https://github.com/envylabs/openssl-extensions/compare/v1.2.0...master
+[unreleased]: https://github.com/envylabs/openssl-extensions/compare/v1.2.1...master
+[v1.2.1]: https://github.com/envylabs/openssl-extensions/compare/v1.2.0...v1.2.1
 [v1.2.0]: https://github.com/envylabs/openssl-extensions/compare/v1.1.0...v1.2.0
 [v1.1.0]: https://github.com/envylabs/openssl-extensions/compare/v1.0.0...v1.1.0
 

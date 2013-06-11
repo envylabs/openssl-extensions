@@ -16,8 +16,14 @@ describe OpenSSLExtensions::X509::Certificate do
       it { should == 2048 }
     end
 
-    context 'for a 1024 bit certificate' do
+    context 'for a 1024 bit RSA-signed certificate' do
       let(:certificate) { extended_ssl_certificates('www.twongo.com') }
+
+      it { should == 1024 }
+    end
+
+    context 'for a 1024 bit DSA-signed certificate' do
+      let(:certificate) { extended_ssl_certificates('bgthelpdesk.braxtongrant.com') }
 
       it { should == 1024 }
     end

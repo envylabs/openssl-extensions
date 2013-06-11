@@ -5,6 +5,8 @@ require 'openssl-extensions/pkey'
 # Extends OpenSSL::PKey::PKey and its submodules with helper methods.
 #
 module OpenSSLExtensions::PKey::PKey
+  UnknownAlgorithmError = Class.new(RuntimeError)
+
   ##
   # Equality is tested by comparing the instances' +hash+.
   #
@@ -20,6 +22,13 @@ module OpenSSLExtensions::PKey::PKey
   #
   def hash
     to_pem.hash
+  end
+
+  ##
+  # Returns the strength of the public key in number of bits.
+  #
+  def strength
+    raise UnknownAlgorithmError
   end
 end
 

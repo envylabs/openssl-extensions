@@ -61,7 +61,7 @@ module OpenSSLExtensions::X509::Certificate
   # Returns the bit strength of the public certificate.
   #
   def strength
-    public_key.n.num_bits
+    public_key.strength
   end
 
   ##

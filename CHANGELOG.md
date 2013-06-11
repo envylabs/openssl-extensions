@@ -2,6 +2,7 @@
 
 ## [HEAD][unreleased] / unreleased
 
+* Fix strength calculation with X509 certificates encrypted with DSA keys.
 * Loosen the RSpec dependency requirements to ~> 2.x.
 * Fix failing specs in CRL distribution points.
 
